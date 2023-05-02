@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function CountriesNav({ selectedCountry, onUpdateCountry }) {
   const countries = ['All', 'USA', 'India', 'France', 'Germany', 'Brazil', 'Japan', 'Italy', 'UK'];
@@ -16,6 +17,11 @@ function CountriesNav({ selectedCountry, onUpdateCountry }) {
     </select>
   );
 }
+
+CountriesNav.propTypes = {
+  selectedCountry: PropTypes.string.isRequired,
+  onUpdateCountry: PropTypes.func.isRequired,
+};
 
 class CovidStats extends React.Component {
   constructor(props) {
