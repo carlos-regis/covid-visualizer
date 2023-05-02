@@ -1,9 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
+import Covid from './components/CovidStats';
 
 function App() {
   return (
-      <div>Hello World!!!</div>
+      <div className='light'>
+        <div className="container">
+          <Covid />
+        </div>
+      </div>
   );
 }
 
