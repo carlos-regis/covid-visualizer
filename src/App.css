@@ -175,6 +175,28 @@ select:focus {
   padding-right: 16px;
 }
 
+.split {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.stack {
+  --space: 8px;
+  display: grid;
+  gap: var(--space);
+}
+
+.animate-in {
+  animation: fade-in 0.5s ease-in-out;
+}
 
 /* Project Specific Styles */
 
+.main-stack {
+  --space: 40px;
+}
