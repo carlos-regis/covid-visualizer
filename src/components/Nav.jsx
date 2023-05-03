@@ -12,7 +12,7 @@ function Nav({ theme, toggleTheme }) {
                     'nav-link' + (isActive ? ' active' : '')
                 }
             >
-                Covid Visualiser
+                Covid Visualizer
             </NavLink>
             <ul className="row">
                 <li>
