@@ -1,5 +1,6 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { close } from './icons';
 
 function Instructions({}) {
     return (
@@ -65,6 +66,37 @@ class CountryInput extends React.Component {
     }
 }
 
+function CountryPreview({ country, label, onReset }) {
+    return (
+      <article className="card">
+        <h3 className="country-label">{label}</h3>
+        <div className="split">
+          <div className="row gap-md">
+            <img
+              width={32}
+              height={32}
+              className="flag"
+              src={`https://github.com/${country}.png?size=200`}
+              alt={`Flag for ${country}`}
+            />
+            <a href={`https://github.com/${country}`} className="link">
+              {country}
+            </a>
+          </div>
+          <button onClick={onReset} className="btn secondary icon">
+            {close}
+          </button>
+        </div>
+      </article>
+    );
+}
+  
+CountryPreview.propTypes = {
+    country: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired,
+};
+
 class Comparison extends React.Component {
     constructor(props) {
         super(props);
@@ -75,11 +107,18 @@ class Comparison extends React.Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleReset = this.handleReset.bind(this);
     }
 
     handleSubmit(id, country) {
         this.setState({
             [id]: country,
+        });
+    }
+
+    handleReset(id) {
+        this.setState({
+            [id]: null,
         });
     }
 
@@ -91,10 +130,9 @@ class Comparison extends React.Component {
             <main className="stack main-stack animate-in">
                 <div className="split">
                 <h1>Countries</h1>
-                <pre>{JSON.stringify(this.state, null, 2)}</pre>
-                <a href='#' className={`btn primary ${disabled ? 'disabled' : ''}`}>
+                <button className={`btn primary ${disabled ? 'disabled' : ''}`}>
                     Comparison
-                </a>
+                </button>
                 </div>
                 <section className="grid">
                     {countryOne === null ? (<
@@ -102,13 +140,25 @@ class Comparison extends React.Component {
                             label = "Country #1"
                             onSubmit={(country) => this.handleSubmit('countryOne', country)}
                         />
-                    ) : null}
+                    ) : (
+                        <CountryPreview
+                            label="Country Two"
+                            country={countryTwo}
+                            onReset={() => this.handleReset('CountryTwo')}
+                        />
+                      )}
                     {countryTwo === null ? (<
                         CountryInput 
                             label = "Country #2"
                             onSubmit={(country) => this.handleSubmit('countryTwo', country)}
                         />) 
-                    : null}
+                    : (
+                        <CountryPreview
+                            label="Country One"
+                            country={countryOne}
+                            onReset={() => this.handleReset('CountryOne')}
+                        />
+                      )}
                 </section>
                 <Instructions />
             </main>

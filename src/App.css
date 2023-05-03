@@ -338,7 +338,7 @@ tbody td:first-child {
   gap: 32px;
 }
 
-.avatar {
+.flag {
   --size: 32px;
   --radius: 4px;
   aspect-ratio: 1/1;
@@ -347,7 +347,7 @@ tbody td:first-child {
   border-radius: var(--radius);
 }
 
-.avatar.large {
+.flag.large {
   --size: 48px;
 }
 
@@ -362,6 +362,19 @@ tbody td:first-child {
 }
 
 /* Project Specific Styles */
+
+.nav-link {
+  opacity: 1;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
 
 .row.split {
   padding: 8px;

@@ -35,7 +35,7 @@ function TableRow({
                     <img
                         width={32}
                         height={32}
-                        className="avatar"
+                        className="flag"
                         src={flag}
                         alt={`Flag for ${country}`}
                     />
