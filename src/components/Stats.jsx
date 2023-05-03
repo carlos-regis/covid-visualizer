@@ -37,24 +37,18 @@ CountriesNav.propTypes = {
 };
 
 class Stats extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedCountry: 'All',
-            countries: null,
-            error: null,
-            loading: true,
-        };
-
-        this.updateCountry = this.updateCountry.bind(this);
-    }
+    state = {
+        selectedCountry: 'All',
+        countries: null,
+        error: null,
+        loading: true,
+    };
 
     componentDidMount() {
         this.updateCountry(this.state.selectedCountry);
     }
 
-    updateCountry(selectedCountry) {
+    updateCountry = (selectedCountry) => {
         this.setState({
             selectedCountry: selectedCountry,
             error: null,
@@ -76,7 +70,7 @@ class Stats extends React.Component {
                     loading: false,
                 });
             });
-    }
+    };
 
     render() {
         const { selectedCountry, countries, error, loading } = this.state;

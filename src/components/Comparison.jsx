@@ -18,27 +18,20 @@ function Instructions({}) {
 }
 
 class CountryInput extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        country: '',
+    };
 
-        this.state = {
-            country: '',
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         this.props.onSubmit(this.state.country);
-    }
+    };
 
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({
             country: event.target.value,
         });
-    }
+    };
 
     render() {
         return (
@@ -100,29 +93,22 @@ CountryPreview.propTypes = {
 };
 
 class Comparison extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        countryOne: null,
+        countryTwo: null,
+    };
 
-        this.state = {
-            countryOne: null,
-            countryTwo: null,
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleReset = this.handleReset.bind(this);
-    }
-
-    handleSubmit(id, country) {
+    handleSubmit = (id, country) => {
         this.setState({
             [id]: country,
         });
-    }
+    };
 
-    handleReset(id) {
+    handleReset = (id) => {
         this.setState({
             [id]: null,
         });
-    }
+    };
 
     render() {
         const { countryOne, countryTwo } = this.state;
