@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { close } from './icons';
 import { Link } from 'react-router-dom';
 
-function Instructions({}) {
+function Instructions() {
     return (
         <section className="instructions-container">
             <h2>Instructions</h2>
