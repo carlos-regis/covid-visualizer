@@ -30,7 +30,7 @@ async function getCountryProfile(country) {
 }
 
 function calculateScore(casesPerOneMillion, deathsPerOneMillion) {
-    return casesPerOneMillion + deathsPerOneMillion * 2;
+    return casesPerOneMillion + deathsPerOneMillion * 3;
 }
 
 async function getCountryData(country) {
