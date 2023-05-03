@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fetchCovidData } from '../utils/api';
+import Table from './Table';
 
 function CountriesNav({ selectedCountry, onUpdateCountry }) {
   const countries = ['All', 'USA', 'India', 'France', 'Germany', 'Brazil', 'Japan', 'Italy', 'UK'];
@@ -43,8 +44,8 @@ class CovidStats extends React.Component {
 
   updateCountry(selectedCountry) {
     this.setState({
-      selectedCountry,
-      error: null
+      selectedCountry: selectedCountry,
+      error: null,
     });
 
     fetchCovidData(selectedCountry)
@@ -70,7 +71,7 @@ class CovidStats extends React.Component {
     return (
       <main className="stack main-stack animate-in">
         <div className="split">
-          <h1>Covid Cases</h1> 
+          <h1>Covid Stats</h1> 
           <CountriesNav 
             selected={selectedCountry}
             onUpdateCountry={this.updateCountry}
@@ -78,7 +79,7 @@ class CovidStats extends React.Component {
         </div>
         { error && <p className="text-center error">{error}</p>}
 
-        {countries && <pre>{JSON.stringify(countries, null, 2)}</pre>}
+        {countries && <Table countries={countries} />}
       </main>
     );
   }
