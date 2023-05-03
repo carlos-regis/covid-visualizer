@@ -1,6 +1,7 @@
 import React from 'react';
 import { comparison } from '../utils/api';
 import PropTypes from 'prop-types';
+import Loading from './Loading';
 
 function Card({ profile }) {
     const {
@@ -96,7 +97,7 @@ class Results extends React.Component {
         const { winner, loser, error, loading } = this.state;
 
         if (loading === true) {
-            return <i>LOADING</i>;
+            return <Loading text="Comparing countries" />;
         }
 
         if (error) {
