@@ -2,11 +2,14 @@ import React from 'react';
 import { ReactDOM } from 'react-dom/client';
 import logo from './logo.svg';
 import './App.css';
-import Stats from './components/Stats';
-import Comparison from './components/Comparison';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
-import Results from './components/Results';
+import Loading from './components/Loading';
+
+const Results = React.lazy(() => import('./components/Results'));
+const Stats = React.lazy(() => import('./components/Stats'));
+const Comparison = React.lazy(() => import('./components/Comparison'));
 
 class App extends React.Component {
     state = {
@@ -27,14 +30,16 @@ class App extends React.Component {
                             theme={this.state.theme}
                             toggleTheme={this.toggleTheme}
                         />
-                        <Routes>
-                            <Route path="/" element={<Stats />} />
-                            <Route
-                                path="/comparison"
-                                element={<Comparison />}
-                            />
-                            <Route path="/results" element={<Results />} />
-                        </Routes>
+                        <React.Suspense fallback={<Loading />}>
+                            <Routes>
+                                <Route path="/" element={<Stats />} />
+                                <Route
+                                    path="/comparison"
+                                    element={<Comparison />}
+                                />
+                                <Route path="/results" element={<Results />} />
+                            </Routes>
+                        </React.Suspense>
                     </div>
                 </div>
             </Router>
