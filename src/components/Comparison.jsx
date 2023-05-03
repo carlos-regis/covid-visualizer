@@ -155,9 +155,9 @@ class Comparison extends React.Component {
                         />
                     ) : (
                         <CountryPreview
-                            label="Country Two"
-                            country={countryTwo}
-                            onReset={() => this.handleReset('CountryTwo')}
+                            label="Country #1"
+                            country={countryOne}
+                            onReset={() => this.handleReset('countryOne')}
                         />
                       )}
                     {countryTwo === null ? (<
@@ -167,9 +167,9 @@ class Comparison extends React.Component {
                         />) 
                     : (
                         <CountryPreview
-                            label="Country One"
-                            country={countryOne}
-                            onReset={() => this.handleReset('CountryOne')}
+                            label="Country #2"
+                            country={countryTwo}
+                            onReset={() => this.handleReset('countryTwo')}
                         />
                       )}
                 </section>
