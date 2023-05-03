@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import Covid from './components/CovidStats';
+import CovidStats from './components/CovidStats';
+import Comparison from './components/Comparison';
 
 function App() {
   return (
       <div className='light'>
         <div className="container">
-          <Covid />
+          <Comparison />
         </div>
       </div>
   );

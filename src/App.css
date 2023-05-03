@@ -159,7 +159,82 @@ select:focus {
   outline: 1px solid var(--border-color);
 }
 
+button,
+.btn {
+  appearance: none;
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+}
+
+button,
+.btn:hover {
+  opacity: 0.8;
+}
+
+button.primary,
+.btn.primary {
+  background: var(--accent);
+  color: var(--bg-alt);
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+button.secondary,
+.btn.secondary {
+  background: var(--bg-alt);
+  color: var(--accent);
+}
+
+button.link,
+.btn.link {
+  appearance: none;
+  background: transparent;
+  color: var(--accent);
+  padding: 10px;
+  text-decoration: underline;
+  display: inline-block;
+}
+
+button.large,
+.btn.large {
+  font-size: 14px;
+  padding: 16px;
+}
+
 /* Form */
+
+label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input {
+  appearance: none;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 10px;
+  color: var(--color);
+}
+
+input::placeholder {
+  color: var(--color-muted);
+}
+
+input:focus {
+  border-color: var(--color);
+  outline: none;
+}
 
 
 /* Components */
@@ -288,6 +363,76 @@ tbody td:first-child {
 
 /* Project Specific Styles */
 
+.row.split {
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.input-row {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.input-row input {
+  flex: 1;
+}
+
+.input-row button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
 .main-stack {
   --space: 40px;
+}
+
+.country-label {
+  font-size: 14px;
+  font-weight: 400;
+  display: block;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.instructions-container {
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.instructions-container ol {
+  display: grid;
+  gap: 8px;
+  list-style-type: decimal;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.card {
+  padding: 40px;
+  border-radius: 16px;
+  font-size: 14px;
+  background-color: var(--bg-alt);
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.75;
+  position: relative;
+}
+
+.card header {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card li > *:not(:first-child) {
+  opacity: 0.75;
 }
