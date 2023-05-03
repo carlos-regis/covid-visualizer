@@ -36,7 +36,7 @@ CountriesNav.propTypes = {
     onUpdateCountry: PropTypes.func.isRequired,
 };
 
-class CovidStats extends React.Component {
+class Stats extends React.Component {
     constructor(props) {
         super(props);
 
@@ -92,7 +92,7 @@ class CovidStats extends React.Component {
         return (
             <main className="stack main-stack animate-in">
                 <div className="split">
-                    <h1>Covid Stats</h1>
+                    <h1>Stats</h1>
                     <CountriesNav
                         selected={selectedCountry}
                         onUpdateCountry={this.updateCountry}
@@ -106,4 +106,4 @@ class CovidStats extends React.Component {
     }
 }
 
-export default CovidStats;
+export default Stats;
