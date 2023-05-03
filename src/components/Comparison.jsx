@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { close } from './icons';
-import Results from './Results';
 import { Link } from 'react-router-dom';
 
 function Instructions({}) {
