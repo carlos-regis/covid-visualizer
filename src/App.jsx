@@ -7,7 +7,7 @@ function App() {
   return (
       <div className='light'>
         <div className="container">
-          <Comparison />
+          <CovidStats />
         </div>
       </div>
   );

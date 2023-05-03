@@ -2,87 +2,108 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fetchCovidData } from '../utils/api';
 import Table from './Table';
+import Loading from './Loading';
 
 function CountriesNav({ selectedCountry, onUpdateCountry }) {
-  const countries = ['All', 'USA', 'India', 'France', 'Germany', 'Brazil', 'Japan', 'Italy', 'UK'];
+    const countries = [
+        'All',
+        'USA',
+        'India',
+        'France',
+        'Germany',
+        'Brazil',
+        'Japan',
+        'Italy',
+        'UK',
+    ];
 
-  return (
-    <select 
-      onChange={(event) => onUpdateCountry(event.target.value)}
-      selected={selectedCountry}
-    >
-      {countries.map((country) => (
-        <option key={country} value={country}>
-          {country}
-        </option>
-      ))}
-    </select>
-  );
+    return (
+        <select
+            onChange={(event) => onUpdateCountry(event.target.value)}
+            selected={selectedCountry}
+        >
+            {countries.map((country) => (
+                <option key={country} value={country}>
+                    {country}
+                </option>
+            ))}
+        </select>
+    );
 }
 
 CountriesNav.propTypes = {
-  selectedCountry: PropTypes.string.isRequired,
-  onUpdateCountry: PropTypes.func.isRequired,
+    selectedCountry: PropTypes.string.isRequired,
+    onUpdateCountry: PropTypes.func.isRequired,
 };
 
 class CovidStats extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      selectedCountry: 'All',
-      countries: null,
-      error: null
-    };
+        this.state = {
+            selectedCountry: 'All',
+            countries: null,
+            error: null,
+            loading: true,
+        };
 
-    this.updateCountry = this.updateCountry.bind(this);
-  }
+        this.updateCountry = this.updateCountry.bind(this);
+    }
 
-  componentDidMount() {
-    this.updateCountry(this.state.selectedCountry);
-  }
+    componentDidMount() {
+        this.updateCountry(this.state.selectedCountry);
+    }
 
-  updateCountry(selectedCountry) {
-    this.setState({
-      selectedCountry: selectedCountry,
-      error: null,
-    });
-
-    fetchCovidData(selectedCountry)
-      .then((countries) =>
+    updateCountry(selectedCountry) {
         this.setState({
-          countries,
-          error: null,
-        }),
-      )
-      .catch((error) => {
-        console.warn('Error fetching countries: ', error);
-
-        this.setState({
-          error: `There was an error fetching the countries`,
+            selectedCountry: selectedCountry,
+            error: null,
         });
-      });
 
-  }
+        fetchCovidData(selectedCountry)
+            .then((countries) =>
+                this.setState({
+                    countries,
+                    error: null,
+                    loading: false,
+                }),
+            )
+            .catch((error) => {
+                console.warn('Error fetching countries: ', error);
 
-  render() {
-    const { selectedCountry, countries, error } = this.state;
+                this.setState({
+                    error: `There was an error fetching the countries`,
+                    loading: false,
+                });
+            });
+    }
 
-    return (
-      <main className="stack main-stack animate-in">
-        <div className="split">
-          <h1>Covid Stats</h1> 
-          <CountriesNav 
-            selected={selectedCountry}
-            onUpdateCountry={this.updateCountry}
-            />
-        </div>
-        { error && <p className="text-center error">{error}</p>}
+    render() {
+        const { selectedCountry, countries, error, loading } = this.state;
 
-        {countries && <Table countries={countries} />}
-      </main>
-    );
-  }
+        if (loading === true) {
+            return <Loading text="Loading covid-19 data" />;
+        }
+
+        if (error) {
+            return <p className="text-center error">{error}</p>;
+        }
+
+        return (
+            <main className="stack main-stack animate-in">
+                <div className="split">
+                    <h1>Covid Stats</h1>
+                    <CountriesNav
+                        selected={selectedCountry}
+                        onUpdateCountry={this.updateCountry}
+                    />
+                </div>
+                {error && <p className="text-center error">{error}</p>}
+
+                {countries && <Table countries={countries} />}
+            </main>
+        );
+    }
 }
 
 export default CovidStats;
