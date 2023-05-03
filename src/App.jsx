@@ -6,6 +6,7 @@ import Stats from './components/Stats';
 import Comparison from './components/Comparison';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
+import Results from './components/Results';
 
 class App extends React.Component {
     constructor(prop) {
@@ -39,6 +40,7 @@ class App extends React.Component {
                                 path="/comparison"
                                 element={<Comparison />}
                             />
+                            <Route path="/results" element={<Results />} />
                         </Routes>
                     </div>
                 </div>

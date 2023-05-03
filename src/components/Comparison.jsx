@@ -2,24 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { close } from './icons';
 import Results from './Results';
+import { Link } from 'react-router-dom';
 
 function Instructions({}) {
     return (
-      <section className="instructions-container">
-        <h2>Instructions</h2>
-        <ol>
-          <li>Enter 2 countries</li>
-          <li>Comparison</li>
-          <li>Compare both countries</li>
-        </ol>
-      </section>
+        <section className="instructions-container">
+            <h2>Instructions</h2>
+            <ol>
+                <li>Enter 2 countries</li>
+                <li>Comparison</li>
+                <li>Compare both countries</li>
+            </ol>
+        </section>
     );
-  }
+}
 
 class CountryInput extends React.Component {
     constructor(props) {
         super(props);
-    
+
         this.state = {
             country: '',
         };
@@ -29,10 +30,10 @@ class CountryInput extends React.Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault(); 
+        event.preventDefault();
         this.props.onSubmit(this.state.country);
     }
-    
+
     handleChange(event) {
         this.setState({
             country: event.target.value,
@@ -43,7 +44,7 @@ class CountryInput extends React.Component {
         return (
             <form className="card" onSubmit={this.handleSubmit}>
                 <label htmlFor="country" className="country-label">
-                {this.props.label}
+                    {this.props.label}
                 </label>
                 <div className="input-row">
                     <input
@@ -59,39 +60,39 @@ class CountryInput extends React.Component {
                         type="submit"
                         disabled={!this.state.country}
                     >
-                    Submit
+                        Submit
                     </button>
                 </div>
-          </form>
+            </form>
         );
     }
 }
 
 function CountryPreview({ country, label, onReset }) {
     return (
-      <article className="card">
-        <h3 className="country-label">{label}</h3>
-        <div className="split">
-          <div className="row gap-md">
-            <img
-              width={32}
-              height={32}
-              className="flag"
-              src={`https://github.com/${country}.png?size=200`}
-              alt={`Flag for ${country}`}
-            />
-            <a href={`https://github.com/${country}`} className="link">
-              {country}
-            </a>
-          </div>
-          <button onClick={onReset} className="btn secondary icon">
-            {close}
-          </button>
-        </div>
-      </article>
+        <article className="card">
+            <h3 className="country-label">{label}</h3>
+            <div className="split">
+                <div className="row gap-md">
+                    <img
+                        width={32}
+                        height={32}
+                        className="flag"
+                        src={`https://github.com/${country}.png?size=200`}
+                        alt={`Flag for ${country}`}
+                    />
+                    <a href={`https://github.com/${country}`} className="link">
+                        {country}
+                    </a>
+                </div>
+                <button onClick={onReset} className="btn secondary icon">
+                    {close}
+                </button>
+            </div>
+        </article>
     );
 }
-  
+
 CountryPreview.propTypes = {
     country: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -105,8 +106,7 @@ class Comparison extends React.Component {
         this.state = {
             countryOne: null,
             countryTwo: null,
-            comparison: false
-        }
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleReset = this.handleReset.bind(this);
@@ -125,33 +125,30 @@ class Comparison extends React.Component {
     }
 
     render() {
-        const { countryOne, countryTwo, comparison } = this.state;
+        const { countryOne, countryTwo } = this.state;
         const disabled = !countryOne || !countryTwo;
-
-        if (comparison === true) {
-            return <Results countryOne={countryOne} countryTwo={countryTwo} />;
-        }
 
         return (
             <main className="stack main-stack animate-in">
                 <div className="split">
-                <h1>Countries</h1>
-                <button 
-                    className={`btn primary ${disabled ? 'disabled' : ''}`}
-                    onClick={() => {
-                        this.setState({
-                          comparison: true,
-                        });
-                      }}
-                >
-                    Comparison
-                </button>
+                    <h1>Countries</h1>
+                    <Link
+                        to={{
+                            pathname: '/results',
+                            search: `?countryOne=${countryOne}&countryTwo=${countryTwo}`,
+                        }}
+                        className={`btn primary ${disabled ? 'disabled' : ''}`}
+                    >
+                        Comparison
+                    </Link>
                 </div>
                 <section className="grid">
-                    {countryOne === null ? (<
-                        CountryInput 
-                            label = "Country #1"
-                            onSubmit={(country) => this.handleSubmit('countryOne', country)}
+                    {countryOne === null ? (
+                        <CountryInput
+                            label="Country #1"
+                            onSubmit={(country) =>
+                                this.handleSubmit('countryOne', country)
+                            }
                         />
                     ) : (
                         <CountryPreview
@@ -159,19 +156,21 @@ class Comparison extends React.Component {
                             country={countryOne}
                             onReset={() => this.handleReset('countryOne')}
                         />
-                      )}
-                    {countryTwo === null ? (<
-                        CountryInput 
-                            label = "Country #2"
-                            onSubmit={(country) => this.handleSubmit('countryTwo', country)}
-                        />) 
-                    : (
+                    )}
+                    {countryTwo === null ? (
+                        <CountryInput
+                            label="Country #2"
+                            onSubmit={(country) =>
+                                this.handleSubmit('countryTwo', country)
+                            }
+                        />
+                    ) : (
                         <CountryPreview
                             label="Country #2"
                             country={countryTwo}
                             onReset={() => this.handleReset('countryTwo')}
                         />
-                      )}
+                    )}
                 </section>
                 <Instructions />
             </main>
