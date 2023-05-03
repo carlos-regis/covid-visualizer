@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { close } from './icons';
+import Results from './Results';
 
 function Instructions({}) {
     return (
@@ -104,6 +105,7 @@ class Comparison extends React.Component {
         this.state = {
             countryOne: null,
             countryTwo: null,
+            comparison: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -123,14 +125,25 @@ class Comparison extends React.Component {
     }
 
     render() {
-        const { countryOne, countryTwo } = this.state;
+        const { countryOne, countryTwo, comparison } = this.state;
         const disabled = !countryOne || !countryTwo;
+
+        if (comparison === true) {
+            return <Results countryOne={countryOne} countryTwo={countryTwo} />;
+        }
 
         return (
             <main className="stack main-stack animate-in">
                 <div className="split">
                 <h1>Countries</h1>
-                <button className={`btn primary ${disabled ? 'disabled' : ''}`}>
+                <button 
+                    className={`btn primary ${disabled ? 'disabled' : ''}`}
+                    onClick={() => {
+                        this.setState({
+                          comparison: true,
+                        });
+                      }}
+                >
                     Comparison
                 </button>
                 </div>
