@@ -26,7 +26,6 @@ function App() {
                             <Routes>
                                 <Route exact path="/" element={<Stats />} />
                                 <Route
-                                    exact
                                     path="/comparison"
                                     element={<Comparison />}
                                 />
