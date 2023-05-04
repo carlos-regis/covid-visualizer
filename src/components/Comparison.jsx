@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { close } from './icons';
+import { ThemeConsumer } from '../contexts/theme';
 import { Link } from 'react-router-dom';
 
 function Instructions() {
     return (
-        <section className="instructions-container">
-            <h2>Instructions</h2>
-            <ol>
-                <li>Enter 2 countries</li>
-                <li>Comparison</li>
-                <li>Compare both countries</li>
-            </ol>
-        </section>
+        <ThemeConsumer>
+            {(theme) => (
+                <section className="instructions-container">
+                    <h2>Instructions</h2>
+                    <ol>
+                        <li>Enter 2 countries</li>
+                        <li>Comparison</li>
+                        <li>Compare both countries</li>
+                    </ol>
+                </section>
+            )}
+        </ThemeConsumer>
     );
 }
 
@@ -34,54 +39,68 @@ class CountryInput extends React.Component {
 
     render() {
         return (
-            <form className="card" onSubmit={this.handleSubmit}>
-                <label htmlFor="country" className="country-label">
-                    {this.props.label}
-                </label>
-                <div className="input-row">
-                    <input
-                        type="text"
-                        id="country"
-                        placeholder="country"
-                        autoComplete="off"
-                        value={this.state.country}
-                        onChange={this.handleChange}
-                    />
-                    <button
-                        className="btn link"
-                        type="submit"
-                        disabled={!this.state.country}
-                    >
-                        Submit
-                    </button>
-                </div>
-            </form>
+            <ThemeConsumer>
+                {(theme) => (
+                    <form className="card" onSubmit={this.handleSubmit}>
+                        <label htmlFor="country" className="country-label">
+                            {this.props.label}
+                        </label>
+                        <div className="input-row">
+                            <input
+                                type="text"
+                                id="country"
+                                placeholder="country"
+                                autoComplete="off"
+                                value={this.state.country}
+                                onChange={this.handleChange}
+                            />
+                            <button
+                                className="btn link"
+                                type="submit"
+                                disabled={!this.state.country}
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                )}
+            </ThemeConsumer>
         );
     }
 }
 
 function CountryPreview({ country, label, onReset }) {
     return (
-        <article className="card">
-            <h3 className="country-label">{label}</h3>
-            <div className="split">
-                <div className="row gap-md">
-                    <img
-                        width={32}
-                        height={32}
-                        className="flag"
-                        src={`https://github.com/${country}.png?size=200`}
-                        alt={`Flag for ${country}`}
-                    />
-                    <a href={`https://github.com/${country}`} className="link">
-                        {country}
-                    </a>
-                </div>
-                <button onClick={onReset} className="btn secondary icon">
-                    {close}
-                </button>
-            </div>
-        </article>
+        <ThemeConsumer>
+            {(theme) => (
+                <article className="card">
+                    <h3 className="country-label">{label}</h3>
+                    <div className="split">
+                        <div className="row gap-md">
+                            <img
+                                width={32}
+                                height={32}
+                                className="flag"
+                                src={`https://github.com/${country}.png?size=200`}
+                                alt={`Flag for ${country}`}
+                            />
+                            <a
+                                href={`https://github.com/${country}`}
+                                className="link"
+                            >
+                                {country}
+                            </a>
+                        </div>
+                        <button
+                            onClick={onReset}
+                            className="btn secondary icon"
+                        >
+                            {close}
+                        </button>
+                    </div>
+                </article>
+            )}
+        </ThemeConsumer>
     );
 }
 
@@ -119,7 +138,7 @@ class Comparison extends React.Component {
                     <h1>Countries</h1>
                     <Link
                         to={{
-                            pathname: '/results',
+                            pathname: '/comparison/results',
                             search: `?countryOne=${countryOne}&countryTwo=${countryTwo}`,
                         }}
                         className={`btn primary ${disabled ? 'disabled' : ''}`}

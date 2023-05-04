@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const styles = {
-    fontSize: '14px',
+    fontSize: '30px',
     position: 'absolute',
     left: '0',
     right: '0',

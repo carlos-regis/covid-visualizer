@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Hover extends React.Component {
+export default class Hover extends React.Component {
     state = {
         hovering: false,
     };
@@ -21,5 +21,3 @@ class Hover extends React.Component {
         );
     }
 }
-
-export default Hover;

@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/theme';
 import Nav from './components/Nav';
 import Loading from './components/Loading';
 
@@ -10,40 +11,39 @@ const Results = React.lazy(() => import('./components/Results'));
 const Stats = React.lazy(() => import('./components/Stats'));
 const Comparison = React.lazy(() => import('./components/Comparison'));
 
-class App extends React.Component {
-    state = {
-        theme: 'light',
-    };
-    toggleTheme = () => {
-        this.setState(({ theme }) => ({
-            theme: theme === 'light' ? 'dark' : 'light',
-        }));
-    };
-
-    render() {
-        return (
-            <Router>
-                <div className={this.state.theme}>
+function App() {
+    const [theme, setTheme] = React.useState('light');
+    const toggleTheme = () =>
+        setTheme((theme) => (theme === 'light' ? 'dark' : 'light'));
+    return (
+        <Router>
+            <ThemeProvider value={theme}>
+                <div className={theme}>
                     <div className="container">
-                        <Nav
-                            theme={this.state.theme}
-                            toggleTheme={this.toggleTheme}
-                        />
+                        <Nav toggleTheme={toggleTheme} />
+
                         <React.Suspense fallback={<Loading />}>
                             <Routes>
-                                <Route path="/" element={<Stats />} />
+                                <Route exact path="/" element={<Stats />} />
                                 <Route
+                                    exact
                                     path="/comparison"
                                     element={<Comparison />}
                                 />
-                                <Route path="/results" element={<Results />} />
+                                <Route
+                                    path="/comparison/results"
+                                    element={<Results />}
+                                />
+                                <Route
+                                    render={() => <h1>404 - Not Found</h1>}
+                                />
                             </Routes>
                         </React.Suspense>
                     </div>
                 </div>
-            </Router>
-        );
-    }
+            </ThemeProvider>
+        </Router>
+    );
 }
 
 export default App;

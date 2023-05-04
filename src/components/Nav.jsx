@@ -1,56 +1,54 @@
 import React from 'react';
+import { ThemeConsumer } from '../contexts/theme';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { sunIcon, moonIcon } from './icons';
 
-function Nav({ theme, toggleTheme }) {
+export default function Nav({ toggleTheme }) {
     return (
-        <nav className="split">
-            <NavLink
-                to="/"
-                className={({ isActive }) =>
-                    'nav-link' + (isActive ? ' active' : '')
-                }
-            >
-                Covid Visualizer
-            </NavLink>
-            <ul className="row">
-                <li>
+        <ThemeConsumer>
+            {(theme) => (
+                <nav className="split">
                     <NavLink
                         to="/"
+                        exact
                         className={({ isActive }) =>
-                            'nav-link ' + (isActive ? ' active' : '')
+                            'nav-link' + (isActive ? ' active' : '')
                         }
                     >
-                        Stats
+                        Covid Visualizer
                     </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to="/comparison"
-                        className={({ isActive }) =>
-                            'nav-link ' + (isActive ? ' active' : '')
-                        }
-                    >
-                        Comparison
-                    </NavLink>
-                </li>
-                <li>
-                    <button
-                        className="btn secondary icon"
-                        onClick={toggleTheme}
-                    >
-                        {theme === 'light' ? moonIcon : sunIcon}
-                    </button>
-                </li>
-            </ul>
-        </nav>
+                    <ul className="row">
+                        <li>
+                            <NavLink
+                                to="/"
+                                exact
+                                className={({ isActive }) =>
+                                    'nav-link ' + (isActive ? ' active' : '')
+                                }
+                            >
+                                Stats
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/comparison"
+                                className={({ isActive }) =>
+                                    'nav-link ' + (isActive ? ' active' : '')
+                                }
+                            >
+                                Comparison
+                            </NavLink>
+                        </li>
+                        <li>
+                            <button
+                                className="btn secondary icon"
+                                onClick={toggleTheme}
+                            >
+                                {theme === 'light' ? '🔦' : '💡'}
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            )}
+        </ThemeConsumer>
     );
 }
-
-Nav.propTypes = {
-    theme: PropTypes.string.isRequired,
-    toggleTheme: PropTypes.func.isRequired,
-};
-
-export default Nav;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { hashtag } from './icons';
 import Tooltip from './Tooltip';
+import { ThemeConsumer } from '../contexts/theme';
 
 function MoreInfo({
     country,
@@ -87,43 +88,49 @@ function TableRow({
     const { flag } = countryInfo;
 
     return (
-        <tr>
-            <td>{index + 1}</td>
-            <td>
-                <Tooltip
-                    element={
-                        <MoreInfo
-                            country={country}
-                            todayCases={todayCases}
-                            todayRecovered={todayRecovered}
-                            todayDeaths={todayDeaths}
-                            casesPerOneMillion={casesPerOneMillion}
-                            recoveredPerOneMillion={recoveredPerOneMillion}
-                            deathsPerOneMillion={deathsPerOneMillion}
-                        />
-                    }
-                >
-                    <div className="row gap-md">
-                        <img
-                            width={32}
-                            height={32}
-                            className="flag"
-                            src={flag}
-                            alt={`Flag for ${country}`}
-                        />
-                        <a
-                            href={`https://disease.sh/v3/covid-19/countries/${country}`}
+        <ThemeConsumer>
+            {(theme) => (
+                <tr>
+                    <td>{index + 1}</td>
+                    <td>
+                        <Tooltip
+                            element={
+                                <MoreInfo
+                                    country={country}
+                                    todayCases={todayCases}
+                                    todayRecovered={todayRecovered}
+                                    todayDeaths={todayDeaths}
+                                    casesPerOneMillion={casesPerOneMillion}
+                                    recoveredPerOneMillion={
+                                        recoveredPerOneMillion
+                                    }
+                                    deathsPerOneMillion={deathsPerOneMillion}
+                                />
+                            }
                         >
-                            {country}
-                        </a>
-                    </div>
-                </Tooltip>
-            </td>
-            <td>{country}</td>
-            <td>{cases.toLocaleString()}</td>
-            <td>{recovered.toLocaleString()}</td>
-            <td>{deaths.toLocaleString()}</td>
-        </tr>
+                            <div className="row gap-md">
+                                <img
+                                    width={32}
+                                    height={32}
+                                    className="flag"
+                                    src={flag}
+                                    alt={`Flag for ${country}`}
+                                />
+                                <a
+                                    href={`https://disease.sh/v3/covid-19/countries/${country}`}
+                                >
+                                    {country}
+                                </a>
+                            </div>
+                        </Tooltip>
+                    </td>
+                    <td>{country}</td>
+                    <td>{cases.toLocaleString()}</td>
+                    <td>{recovered.toLocaleString()}</td>
+                    <td>{deaths.toLocaleString()}</td>
+                </tr>
+            )}
+        </ThemeConsumer>
     );
 }
 

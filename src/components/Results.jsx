@@ -39,16 +39,18 @@ function Card({ profile }) {
             </header>
             <ul className="stack">
                 <li className="split">
-                    <span>Population:</span> <span>{population}</span>
+                    <span>Population:</span>{' '}
+                    <span>{population.toLocaleString()}</span>
                 </li>
                 <li className="split">
-                    <span>Cases:</span> <span>{cases || 'n/a'}</span>
+                    <span>Cases:</span> <span>{cases.toLocaleString()}</span>
                 </li>
                 <li className="split">
-                    <span>Recovered:</span> <span>{recovered}</span>
+                    <span>Recovered:</span>{' '}
+                    <span>{recovered.toLocaleString()}</span>
                 </li>
                 <li className="split">
-                    <span>Deaths:</span> <span>{deaths}</span>
+                    <span>Deaths:</span> <span>{deaths.toLocaleString()}</span>
                 </li>
             </ul>
         </div>
